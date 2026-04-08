@@ -62,9 +62,12 @@ class Univariate():
     # replacing outliers
     def replace_outlier(self,descriptive_analysis,quan):
         for columnName in quan:
-            dataset.loc[dataset[columnName]<descriptive_analysis.loc["lower_bound",columnName],columnName]=descriptive_analysis.loc["lower_bound",columnName]
-            dataset.loc[dataset[columnName]>descriptive_analysis.loc["upper_bound",columnName], columnName]=descriptive_analysis.loc["upper_bound",columnName]
-        return 'replaced outliers', descriptive_analysis
+            self.dataset.loc[self.dataset[columnName]
+                <descriptive_analysis.loc["lower_bound",columnName],columnName]=descriptive_analysis.loc["lower_bound",columnName]
+            self.dataset.loc[self.dataset[columnName]>descriptive_analysis.loc["upper_bound",columnName],
+                columnName]=descriptive_analysis.loc["upper_bound",columnName]
+        new_descriptive_analysis = self.univariate_continuous(quan)
+        return new_descriptive_analysis, self.dataset
 
 
         
